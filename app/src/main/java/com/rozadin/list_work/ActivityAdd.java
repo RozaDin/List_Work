@@ -3,17 +3,12 @@ package com.rozadin.list_work;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.rozadin.list_work.database.ListWorkSQLiteOpenHelper;
-
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.IOException;
 
 public class ActivityAdd extends AppCompatActivity {
     private int priority_list = 0;
@@ -39,8 +34,7 @@ public class ActivityAdd extends AppCompatActivity {
         }
     }
 
-    /**
-     * @param view
+    /** Метод добавления записи в БД
      */
     public void AddElement(View view) {
         String str = ((EditText) findViewById(R.id.name_add_list)).getText().toString();
@@ -54,60 +48,5 @@ public class ActivityAdd extends AppCompatActivity {
             setResult(0, intent);
             finish();
         }
-    }
-
-    /**
-     * Метод для записи новой записи в файл
-     *
-     * @param str добавляемая запись
-     */
-    private void writeFileString(String str) {
-        FileOutputStream fos = null;
-        String FILE_NAME = initializeFileName();
-        try {
-            fos = openFileOutput(FILE_NAME, MODE_APPEND);
-            fos.write("<>".getBytes());
-            fos.write(str.getBytes());
-            fos.write("<>".getBytes());
-            fos.flush();
-            fos.close();
-        } catch (FileNotFoundException ex) {
-            Toast.makeText(this, ex.getMessage(), Toast.LENGTH_SHORT).show();
-            Log.e("List_work", ex.getMessage());
-        } catch (IOException ex) {
-            Toast.makeText(this, ex.getMessage(), Toast.LENGTH_SHORT).show();
-            Log.e("List_work", ex.getMessage());
-        } finally {
-            try {
-                if (fos != null)
-                    fos.close();
-            } catch (IOException ex) {
-                Toast.makeText(this, ex.getMessage(), Toast.LENGTH_SHORT).show();
-                Log.e("List_work", ex.getMessage());
-            }
-        }
-    }
-
-    /**
-     * Метод для выбора необходимо имени файла для записи в этот файл
-     * @return возвращает имя файла
-     */
-    private String initializeFileName() {
-        String FILE_NAME = null;
-        switch (priority_list) {
-            case 1:
-                FILE_NAME = getResources().getStringArray(R.array.list_file_work)[0];
-                break;
-            case 2:
-                FILE_NAME = getResources().getStringArray(R.array.list_file_work)[1];
-                break;
-            case 3:
-                FILE_NAME = getResources().getStringArray(R.array.list_file_work)[2];
-                break;
-            case 4:
-                FILE_NAME = getResources().getStringArray(R.array.list_file_work)[3];
-                break;
-        }
-        return FILE_NAME;
     }
 }

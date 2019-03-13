@@ -12,9 +12,9 @@ import com.rozadin.list_work.database.ListWorkSQLiteOpenHelper;
 import java.util.ArrayList;
 
 public class Look_List extends AppCompatActivity implements AdapterLookList.onFragmentInteractionDoubleInterfece {
-    private static int priority_list = 1;
-    private static ArrayList<String> list = null;
-    private static AdapterLookList mAdapterLookList = null;
+    private int priority_list = 1;
+    private ArrayList<String> list = null;
+    private AdapterLookList mAdapterLookList = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,7 +46,7 @@ public class Look_List extends AppCompatActivity implements AdapterLookList.onFr
         list.addAll(db.getList(priority_list));
         mAdapterLookList = new AdapterLookList(this, R.layout.layout_look_list_adapter, list, priority_list);
         Log.v("List_work", "adapter init");
-        ListView listV = (ListView) findViewById(R.id.look_list_list_view);
+        ListView listV = findViewById(R.id.look_list_list_view);
         listV.setAdapter(mAdapterLookList);
         Log.v("List_work", "list set adapter");
         db.close();

@@ -8,17 +8,15 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 public class ActivityEdit extends AppCompatActivity {
-    private int priority_list = 0;
     private int count_list = 0;
-    private String string_list_edit = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_edit);
-        priority_list = getIntent().getExtras().getInt("name_list_add");
+        int priority_list = getIntent().getExtras().getInt("name_list_add");
         count_list = getIntent().getExtras().getInt("count_list_add");
-        string_list_edit = getIntent().getExtras().getString("string_list_add");
+        String string_list_edit = getIntent().getExtras().getString("string_list_add");
         switch (priority_list) {
             case 1:
                 ((TextView) findViewById(R.id.name_edit_list_textView)).setText(R.string.name_worth_1);
@@ -36,6 +34,11 @@ public class ActivityEdit extends AppCompatActivity {
         ((EditText)findViewById(R.id.edit_text_activity_edit)).setText(string_list_edit);
     }
 
+    /**
+     * Метод для для редактирования записи.
+     * Отправляет редактируемую запись в Look_List.onActivityResult
+     * где и происходит обработка редактирования записи
+     */
     public void EditElement(View view) {
         String str = ((EditText) findViewById(R.id.edit_text_activity_edit)).getText().toString();
         Intent intent = new Intent(this, Look_List.class);
