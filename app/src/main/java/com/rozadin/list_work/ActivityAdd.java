@@ -9,6 +9,8 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.rozadin.list_work.database.ListWorkSQLiteOpenHelper;
+
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -37,12 +39,16 @@ public class ActivityAdd extends AppCompatActivity {
         }
     }
 
+    /**
+     * @param view
+     */
     public void AddElement(View view) {
         String str = ((EditText) findViewById(R.id.name_add_list)).getText().toString();
         if (str.isEmpty()) {
             Toast.makeText(this, "Пустая добавляемая запись", Toast.LENGTH_SHORT).show();
         } else {
-            writeFileString(priority_list, str);
+            //writeFileString(str);
+            new ListWorkSQLiteOpenHelper(getApplicationContext()).insertList(str, priority_list);
             Intent intent = new Intent(this, Look_List.class);
             intent.putExtra("priority", priority_list);
             setResult(0, intent);
@@ -50,7 +56,12 @@ public class ActivityAdd extends AppCompatActivity {
         }
     }
 
-    private void writeFileString(int count_prioriti_list, String str) {
+    /**
+     * Метод для записи новой записи в файл
+     *
+     * @param str добавляемая запись
+     */
+    private void writeFileString(String str) {
         FileOutputStream fos = null;
         String FILE_NAME = initializeFileName();
         try {
@@ -77,6 +88,10 @@ public class ActivityAdd extends AppCompatActivity {
         }
     }
 
+    /**
+     * Метод для выбора необходимо имени файла для записи в этот файл
+     * @return возвращает имя файла
+     */
     private String initializeFileName() {
         String FILE_NAME = null;
         switch (priority_list) {
