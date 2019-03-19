@@ -4,11 +4,8 @@
     <string name="name_worth_2">Важные и несрочные</string>
     <string name="name_worth_3">Неважные и срочные</string>
     <string name="name_worth_4">Неважные и несрочные</string>
-
-    <string-array name="list_file_work">
-        <item>qwerty1.txt</item>
-        <item>qwerty2.txt</item>
-        <item>qwerty3.txt</item>
-        <item>qwerty4.txt</item>
+    <string-array name="table_page_name">
+        <item>По важности и срочности</item>
+        <item>По дням недели</item>
     </string-array>
 </resources>

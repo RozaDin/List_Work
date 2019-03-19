@@ -38,7 +38,6 @@ public class ListWorkSQLiteOpenHelper extends SQLiteOpenHelper {
         Cursor cursor = null;
         try {
             db = this.getReadableDatabase();
-            Log.v("List_work", "БД создана");
             cursor = db.query(nameTable, new String[]{"TEXT_NOTE"},
                     "WORKLIST = ?", new String[]{Integer.toString(COUNTLIST)},
                     null, null, null);

@@ -1,6 +1,7 @@
 package com.rozadin.list_work;
 
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
@@ -42,9 +43,10 @@ public class Look_List extends AppCompatActivity implements AdapterLookList.onFr
         }
         if (list != null) list.clear();
         list = new ArrayList<>();
+        //GOTO: Надо ли здесь делать асинхронный вызов из БД?
         ListWorkSQLiteOpenHelper db = new ListWorkSQLiteOpenHelper(this);
         list.addAll(db.getList(priority_list));
-        mAdapterLookList = new AdapterLookList(this, R.layout.layout_look_list_adapter, list, priority_list);
+        mAdapterLookList = new AdapterLookList(this, R.layout.layout_look_list_adapter, list);
         Log.v("List_work", "adapter init");
         ListView listV = findViewById(R.id.look_list_list_view);
         listV.setAdapter(mAdapterLookList);
@@ -86,6 +88,12 @@ public class Look_List extends AppCompatActivity implements AdapterLookList.onFr
         startActivityForResult(intent, 1);
     }
 
+    /**
+     * GOTO: Подумать как лучше сделать асинхронный вызов БД?
+     * сделать отдельные классы для вызова
+     * в каждой активити поставить свой асинкТаск(реализованно в Маине)
+     * или придумать что-то новое?
+     */
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         Log.v("List_work", "полученние результата от активности редактированния");

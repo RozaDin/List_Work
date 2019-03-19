@@ -1,6 +1,7 @@
 package com.rozadin.list_work;
 
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -41,8 +42,8 @@ public class ActivityAdd extends AppCompatActivity {
         if (str.isEmpty()) {
             Toast.makeText(this, "Пустая добавляемая запись", Toast.LENGTH_SHORT).show();
         } else {
-            //writeFileString(str);
-            new ListWorkSQLiteOpenHelper(getApplicationContext()).insertList(str, priority_list);
+            /* GOTO: А надо ли здесь ставить асинхронный вызов */
+            new ListWorkSQLiteOpenHelper(this).insertList(str, priority_list);
             Intent intent = new Intent(this, Look_List.class);
             intent.putExtra("priority", priority_list);
             setResult(0, intent);
